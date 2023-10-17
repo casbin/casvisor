@@ -25,6 +25,7 @@ require (
 
 require (
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
+	github.com/lib/pq v1.10.9
 	github.com/prometheus/client_golang v1.11.1 // indirect
 	github.com/shiena/ansicolor v0.0.0-20200904210342-c7312218db18 // indirect
 	github.com/stretchr/testify v1.8.3 // indirect

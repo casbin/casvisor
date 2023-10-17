@@ -18,6 +18,8 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"net/url"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -152,4 +154,24 @@ func SnakeString(s string) string {
 	}
 	result := strings.ToLower(string(data[:]))
 	return strings.ReplaceAll(result, " ", "")
+}
+
+func GetParamFromDataSourceName(dataSourceName string, key string) string {
+	if key == "" {
+		return ""
+	}
+
+	parsedUrl, err := url.Parse(dataSourceName)
+	value := parsedUrl.Query().Get(key)
+	if err == nil && value != "" {
+		return value
+	}
+
+	reg := regexp.MustCompile(key + " ?=([^ ]+)")
+	matches := reg.FindStringSubmatch(dataSourceName)
+	if len(matches) >= 2 {
+		return matches[1]
+	}
+
+	return ""
 }
